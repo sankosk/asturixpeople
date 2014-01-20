@@ -5,7 +5,8 @@ require("../config.php");
 $text=$_GET["text"];
 $page=$_GET["page"];
 
-echo '<h1>'. _('Search results for ') .'"'.$text.'"</h1>';
+// user inputs are devil!
+echo '<h1>'. _('Search results for ') .'"'.htmlentities($text).'"</h1>';
 
 $ideas = $db->search($text, $page);
 
