@@ -26,7 +26,8 @@ class Ui {
 		}
 		//echo $idea['karma'];
 		$date = date('d-m-Y', $idea["date"]);
-		echo '</a><div class="ideaMore"><div class="date" onclick="search(\'' . $date . '\')" id="' . $idea["id"] . '">' . $date . '</div><div class="byUser" onclick="viewProfile(\''.$idea["user"].'\')">' . $idea["user"] . '</div></div>';
+		// fixing a stored xss produced by the username
+		echo '</a><div class="ideaMore"><div class="date" onclick="search(\'' . $date . '\')" id="' . $idea["id"] . '">' . $date . '</div><div class="byUser" onclick="viewProfile(\''.htmlentities($idea)["user"].'\')">' . htmlentities($idea)["user"] . '</div></div>';
 		$desc = $idea["description"];
 		if ($resumed==true)
 		{
@@ -53,11 +54,12 @@ class Ui {
 	public function user($user, $resumed) {
 		if ($user != "")
 		{
+		//xss fix
 		echo '<div id="profile">
 		      <a class="email" href="mailto:'.$user["email"].'">'.$user["email"].'</a>
 		      <img class="photo" src="'.$user["photo"].'" width="70" height="70"/>
 		      <h1 class="name" onclick="viewProfile(\''.$user["user"].'\')">'.$user["name"].'</h1>
-		      <h2 class="user">'.$user["user"].'</h2>
+		      <h2 class="user">'.htmlentities($user)["user"].'</h2>
 		      <p class="info">'.$user["info"].'</p>
 		      </div>';
 		if ($_SESSION["user"] == $user["user"]) {
