@@ -23,7 +23,8 @@ echo '<h2>'. _('No results for ideas') .'</h2>';
 echo '<script>$("#content").highlight("'.$text.'", "highlight");</script>';
 }
 
-$users = $db->searchAccounts($text, $page);
+//another xss searching an user account (if the name of the acc is changed to <htmltags>)
+$users = $db->searchAccounts(htmlentities($text), $page);
 
 $numAccounts = 0;
 
